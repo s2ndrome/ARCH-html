@@ -279,10 +279,12 @@ const FIELDS = [
   {key:'heightBuild', label:'신장 / 체격', type:'text', section:'상세 설정 (TMI)', default:'[신장 및 체격 설명]'},
   {key:'appearance', label:'외형', type:'text', section:'상세 설정 (TMI)', default:'[헤어, 눈, 인상 등 외형 설명]'},
   {key:'outfit', label:'복장', type:'text', section:'상세 설정 (TMI)', default:'[평상시 / 전투 시 복장 설명]'},
-  {key:'speech', label:'화법', type:'text', section:'상세 설정 (TMI)', default:'[말투 및 화법 특징]'},
-  {key:'publicImage', label:'대외 이미지', type:'text', section:'상세 설정 (TMI)', default:'[대중 / 사회적 이미지 설명]'},
-  {key:'selfCare', label:'자기관리', type:'text', section:'상세 설정 (TMI)', default:'[자기관리 성향 설명]'},
-  {key:'scent', label:'체향', type:'text', section:'상세 설정 (TMI)', default:'[체향 설명]'},
+  {key:'tmi1Label', label:'항목 1 이름', type:'text', section:'상세 설정 (TMI)', default:'화법'},
+  {key:'tmi1Value', label:'항목 1 내용', type:'text', section:'상세 설정 (TMI)', default:'[말투 및 화법 특징]'},
+  {key:'tmi2Label', label:'항목 2 이름', type:'text', section:'상세 설정 (TMI)', default:'대외 이미지'},
+  {key:'tmi2Value', label:'항목 2 내용', type:'text', section:'상세 설정 (TMI)', default:'[대중 / 사회적 이미지 설명]'},
+  {key:'tmi3Label', label:'항목 3 이름', type:'text', section:'상세 설정 (TMI)', default:'자기관리'},
+  {key:'tmi3Value', label:'항목 3 내용', type:'text', section:'상세 설정 (TMI)', default:'[자기관리 성향 설명]'},
 
   {key:'handlingText', label:'취급 주의사항 (Handling Protocol)', type:'textarea', section:'취급 주의사항', default:'[가이딩 / 파트너 관계에서의 주의사항 및 취급 지침을 입력하세요]'},
 ];
@@ -612,11 +614,10 @@ ${abilityExtra}
           <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 외형:</b> ${val('appearance')}</p>
           <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 복장:</b> ${val('outfit')}</p>
 
-          <p style="margin: 15px 0 10px 0; font-size: 13px; color: ${s.labelSmall2}; text-transform: uppercase; letter-spacing: 1px;">성향 및 기호 (Behavioral Pattern)</p>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 화법:</b> ${val('speech')}</p>
-          <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 대외 이미지:</b> ${val('publicImage')}</p>
-          <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 자기관리:</b> ${val('selfCare')}</p>
-          <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• 체향:</b> ${val('scent')}</p>
+          <p style="margin: 15px 0 10px 0; font-size: 13px; color: ${s.labelSmall2}; text-transform: uppercase; letter-spacing: 1px;">${isDark ? '성향 및 기호 (Behavioral Pattern)' : 'TMI'}</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• ${val('tmi1Label')}:</b> ${val('tmi1Value')}</p>
+          <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• ${val('tmi2Label')}:</b> ${val('tmi2Value')}</p>
+          <p style="margin: 5px 0 0 0; font-size: 14px; line-height: 1.7; color: ${s.textBody2};"><b style="color: ${s.textMain};">• ${val('tmi3Label')}:</b> ${val('tmi3Value')}</p>
         </div>
 
         <div style="background: ${p.softBgStrong}; border-radius: 8px; padding: 25px; border: 1px solid ${p.borderAlpha}; box-shadow: 0 0 20px ${p.glow};">
