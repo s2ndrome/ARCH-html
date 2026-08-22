@@ -267,7 +267,7 @@ const FIELDS = [
   {key:'specialTitle', label:'특수 상태명', type:'text', section:'능력 개요', default:'[특수 상태명 (영문 표기)]'},
   {key:'specialDesc', label:'특수 상태 설명', type:'textarea', section:'능력 개요', default:'[특수 상태 설명을 입력하세요]'},
   {key:'rampageTitle', label:'폭주 / 위험 징후명', type:'text', section:'능력 개요', default:'[폭주 / 위험 징후명]'},
-  {key:'rampageDesc', label:'폭주 징후 설명', type:'textarea', section:'능력 개요', default:'[폭주 조건 및 상태 설명을 입력하세요]'},
+  {key:'rampageDesc', label:'폭주 징후 설명 (다크 배경에서만 표시)', type:'textarea', section:'능력 개요', default:'[폭주 조건 및 상태 설명을 입력하세요]'},
 
   {key:'archiveTitle', label:'상세 기록 제목', type:'text', section:'아카이브 문서', default:'[캐릭터 상세 기록 제목]'},
   {key:'archiveNotice', label:'열람 제한 안내 문구', type:'text', section:'아카이브 문서', default:'[열람 제한 안내 문구]'},
@@ -491,6 +491,20 @@ function buildCardHtml(){
   const rampage = isDark
     ? { bg: 'rgba(255, 0, 0, 0.1)', border: '#ff0000', title: '#ff9999' }
     : { bg: p.softBgStrong, border: p.deep, title: p.heading };
+  const abilityExtra = isDark ? `
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <p style="margin: 0; font-size: 12px; font-weight: 600; color: ${s.labelSmall}; text-transform: uppercase; letter-spacing: 1px;">Special Phase</p>
+                  <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};"><span style="color: ${p.mid}; font-weight: bold;">• ${val('specialTitle')}:</span> ${val('specialDesc')}</p>
+                </div>
+
+                <div style="background: ${rampage.bg}; padding: 12px; border-radius: 4px; border-left: 3px solid ${rampage.border}; margin-top: 10px;">
+                  <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: 700; color: ${rampage.title};">${val('rampageTitle')}</p>
+                  <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};">${val('rampageDesc')}</p>
+                </div>` : `
+                <div style="background: ${rampage.bg}; padding: 12px; border-radius: 4px; border-left: 3px solid ${rampage.border}; margin-top: 10px;">
+                  <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: 700; color: ${rampage.title};">${val('rampageTitle')}</p>
+                  <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};"><span style="color: ${p.mid}; font-weight: bold;">• ${val('specialTitle')}:</span> ${val('specialDesc')}</p>
+                </div>`;
   const imageUrl = val('imageUrl');
   const bgImage = imageUrl ? `url('${imageUrl}') no-repeat center 20% / cover` : `linear-gradient(160deg, ${s.panelBg}, ${s.cardBg})`;
 
@@ -559,15 +573,7 @@ function buildCardHtml(){
                   <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};">${val('abilityDesc')}</p>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                  <p style="margin: 0; font-size: 12px; font-weight: 600; color: ${s.labelSmall}; text-transform: uppercase; letter-spacing: 1px;">Special Phase</p>
-                  <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};"><span style="color: ${p.mid}; font-weight: bold;">• ${val('specialTitle')}:</span> ${val('specialDesc')}</p>
-                </div>
-
-                <div style="background: ${rampage.bg}; padding: 12px; border-radius: 4px; border-left: 3px solid ${rampage.border}; margin-top: 10px;">
-                  <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: 700; color: ${rampage.title};">${val('rampageTitle')}</p>
-                  <p style="margin: 0; font-size: 13px; line-height: 1.6; color: ${s.textBody};">${val('rampageDesc')}</p>
-                </div>
+${abilityExtra}
               </div>
             </div>
           </div>
