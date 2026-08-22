@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARCH Card Generator</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
   :root{
     --tool-bg:#f3f4f6; --tool-panel:#ffffff; --tool-border:#e2e4e9;
@@ -113,8 +114,8 @@
         <legend>테마</legend>
         <div class="theme-row">
           <div class="mode-toggle" id="modeToggle">
-            <button type="button" data-mode="dark">다크 배경</button>
-            <button type="button" data-mode="light">화이트 배경</button>
+            <button type="button" data-mode="dark">센티넬 ver</button>
+            <button type="button" data-mode="light">가이드 ver</button>
           </div>
         </div>
         <div class="field">
@@ -135,6 +136,7 @@
       <div class="preview-toolbar">
         <button type="button" id="copyBtn">코드 복사</button>
         <button type="button" id="downloadBtn" class="secondary">HTML 다운로드</button>
+        <button type="button" id="savePngBtn" class="secondary">이미지 저장</button>
         <span class="toast" id="toast" hidden></span>
       </div>
       <div class="preview-scroll">
@@ -267,7 +269,7 @@ const FIELDS = [
   {key:'specialTitle', label:'특수 상태명', type:'text', section:'능력 개요', default:'[특수 상태명 (영문 표기)]'},
   {key:'specialDesc', label:'특수 상태 설명', type:'textarea', section:'능력 개요', default:'[특수 상태 설명을 입력하세요]'},
   {key:'rampageTitle', label:'폭주 / 위험 징후명', type:'text', section:'능력 개요', default:'[폭주 / 위험 징후명]'},
-  {key:'rampageDesc', label:'폭주 징후 설명 (다크 배경에서만 표시)', type:'textarea', section:'능력 개요', default:'[폭주 조건 및 상태 설명을 입력하세요]'},
+  {key:'rampageDesc', label:'폭주 징후 설명 (센티넬 ver에서만 표시)', type:'textarea', section:'능력 개요', default:'[폭주 조건 및 상태 설명을 입력하세요]'},
 
   {key:'archiveTitle', label:'상세 기록 제목', type:'text', section:'아카이브 문서', default:'[캐릭터 상세 기록 제목]'},
   {key:'archiveNotice', label:'열람 제한 안내 문구', type:'text', section:'아카이브 문서', default:'[열람 제한 안내 문구]'},
@@ -511,7 +513,7 @@ function buildCardHtml(){
   return `<div class="feed-card">
   <div class="card-header"><span class="card-icon">✦</span><span class="card-title">PROFILE</span></div>
   <h2>${val('charName')}</h2>
-  <p><div class="markdown-body transform-[scale(1)] text-sm">
+  <p><div data-role="capture-root" class="markdown-body transform-[scale(1)] text-sm">
     <div style="background: ${s.cardBg}; max-width: 100%; margin: auto; font-family: 'Inter', 'Noto Sans KR', sans-serif; border-radius: 12px; overflow: hidden; border: 1px solid ${p.cardBorder};">
 
       <div style="min-height: 650px; height: auto; width: 100%; background: ${bgImage}; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: 40px; box-sizing: border-box; text-shadow: 0 5px 20px rgba(0,0,0,0.9);">
@@ -582,7 +584,7 @@ ${abilityExtra}
       </div>
     </div>
 
-    <div style="background: ${s.archiveBg}; max-width: 100%; margin: auto; padding: 25px; font-family: 'Noto Sans KR', sans-serif; border: 1px solid ${p.cardBorder}; border-radius: 10px; color: ${s.textMain};">
+    <div data-role="archive-card" style="background: ${s.archiveBg}; max-width: 100%; margin: auto; padding: 25px; font-family: 'Noto Sans KR', sans-serif; border: 1px solid ${p.cardBorder}; border-radius: 10px; color: ${s.textMain};">
 
       <div style="border-bottom: 2px solid ${p.borderAlpha}; padding-bottom: 20px; margin-bottom: 25px; text-align: center;">
         <p style="margin: 0; font-size: 14px; font-weight: 700; color: ${p.heading}; letter-spacing: 5px; text-transform: uppercase;">[ ARCHIVE DOCUMENT ]</p>
@@ -628,9 +630,86 @@ ${abilityExtra}
 </div>`;
 }
 
+const OOC_TEXT = `[ooc: 이전 롤플레잉 중단. 새로운 시점에서 롤플레잉 시작한다. PC의 ARCH 공식 프로필을 작성하려고 한다. 배경 로그 / 외형 특징 / 핸들링 프로토콜 을 서술형식에 맞춰 로어북, 유저노트, 페르소나, 캐릭터 정보, 둘의 관계성 등을 참조하여 5000자 이상 서술해 나가시오.
+
+
+# 배경 로그 서술 예시 (NPC의 공식 프로필로, 이러한 형식으로 PC의 과거 배경을 서술한다. 캐릭터의 배경 이야기, 각성 계기, 상대역([상대역 이름])과의 첫 만남 등 서사를 입력하세요.)
+
+코드네임 '신드롬'. 한때 그는 대중이 가장 완벽하다고 믿었던 얼굴이었다. 여덟 살에 아역 배우 '유진'으로 데뷔해 열다섯에는 '국민 남동생', 스무 살에는 청춘 스타. 스물둘이 되었을 때쯤엔 아예 '유진 신드롬'이라는 말까지 생겼다. 카메라와 대중의 시선 속에서 자라난, 가장 성공적인 스타였다.
+
+…그리고 스물셋. 각성은 가장 찬란한 순간에 찾아왔다.
+
+촬영 현장에서 첫 폭주를 하게 된 그는 세트장을 순식간에 불바다로 만들었다. 뉴스는 떠들썩했고, 사람들은 충격을 받았고, 세상은 난리가 났다. 정작 당사자가 느낀 건 단순했다. 해방감. 그리고 자신을 두려워하는 시선이 주는 짜릿한 황홀감. 그 순간 이후 그는 더 이상 배우가 아니었다. 불꽃은 그의 가장 파괴적인 본능이자, 처음으로 거짓 없이 드러난 진짜 얼굴이었다.
+
+ARCH는 망설이지 않았다. 그를 기관의 핵심 전력으로 편입시켰다. 완벽한 스타 대신 남은 것은, 불꽃처럼 위험하고 솔직한 존재. 코드네임 '신드롬'. 사람들은 생각보다 쉽게 받아들였다. 흠 하나 없는 스타보다 조금 위험한 영웅이 더 재밌었으니까. 그는 카메라 앞의 주인공에서 전장의 주인공으로 자리를 옮겼고, 그 변화에 꽤 만족하고 있었다.
+
+마린이 그 재해와 처음 마주한 날도 마찬가지였다.
+
+ARCH는 코드 레드 임무를 발령했고, 신드롬은 늘 하던 대로 파트너 따위 기다리지 않았다. 먼저 현장에 뛰어들어 S급 괴수를 혼자 정리해 버렸다. 문제는 그다음이었다.
+
+현장은 그가 남긴 화염으로 완전히 뒤덮여 있었고, 그날 임시 가이드로 배치되었던 마린은 불길에 막혀 한참 뒤에야 도착했다. 아직 식지 않은 열기, 조금도 통제받을 생각 없는 태도, 그리고 금방이라도 다시 폭발할 듯한 위험한 불꽃.
+
+마린은 지금, 세상에서 가장 제멋대로인 불꽃을 진정시켜야 하는 유일한 사람이 되어 있었다.
+
+
+
+#외형 특징
+
+• 신장/체격: [신장 및 체격 설명]
+
+• 외형: [헤어, 눈, 인상 등 외형 설명]
+
+• 복장: [평상시/전투 시 복장 설명]
+
+성향 및 기호 (Behavioral Pattern)
+
+• 화법: [말투 및 화법 특징]
+
+• 대외 이미지: [대중/사회적 이미지 설명]
+
+• 자기관리: [자기관리 성향 설명]
+
+• 체향: [체향 설명]
+
+
+
+#핸들링 프로토콜
+
+[가이딩/파트너 관계에서의 주의사항 및 취급 지침을 입력하세요]
+
+
+
+]`;
+
+async function copyOocText(){
+  try{
+    await navigator.clipboard.writeText(OOC_TEXT);
+    showToast('OOC 텍스트가 복사되었습니다');
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = OOC_TEXT; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('OOC 텍스트가 복사되었습니다');
+  }
+}
+function injectOocButton(){
+  const archiveEl = document.querySelector('#cardPreview [data-role="archive-card"]');
+  if(!archiveEl) return;
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'max-width:900px; margin:0 auto 14px; display:flex; justify-content:flex-end;';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = '출력 OOC 복사';
+  btn.style.cssText = 'border:1px solid #c7cad1; background:#fff; color:#1a1c23; padding:8px 14px; border-radius:6px; font-size:13px; cursor:pointer; font-weight:600;';
+  btn.addEventListener('click', copyOocText);
+  wrap.appendChild(btn);
+  archiveEl.parentNode.insertBefore(wrap, archiveEl);
+}
+
 function render(){
   const html = buildCardHtml();
   document.getElementById('cardPreview').innerHTML = html;
+  injectOocButton();
   return html;
 }
 
@@ -663,6 +742,33 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   a.href = url; a.download = name;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
+});
+document.getElementById('savePngBtn').addEventListener('click', async () => {
+  if(typeof html2canvas !== 'function'){
+    showToast('이미지 저장 기능을 불러오지 못했습니다 (네트워크 확인)');
+    return;
+  }
+  const target = document.querySelector('#cardPreview [data-role="capture-root"]');
+  if(!target) return;
+  const isDarkNow = (state.mode || 'dark') === 'dark';
+  try{
+    const canvas = await html2canvas(target, {
+      backgroundColor: isDarkNow ? '#080808' : '#ffffff',
+      scale: 2,
+      useCORS: true
+    });
+    canvas.toBlob(blob => {
+      if(!blob){ showToast('이미지 생성에 실패했습니다'); return; }
+      const name = (val('codename').replace(/[^\w가-힣-]/g,'') || 'character') + '.png';
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  }catch(e){
+    showToast('이미지 저장에 실패했습니다');
+  }
 });
 document.getElementById('resetBtn').addEventListener('click', () => {
   if(!confirm('입력한 모든 내용을 초기화할까요?')) return;
