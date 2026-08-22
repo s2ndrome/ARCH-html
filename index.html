@@ -279,12 +279,12 @@ const FIELDS = [
   {key:'heightBuild', label:'신장 / 체격', type:'text', section:'상세 설정 (TMI)', default:'[신장 및 체격 설명]'},
   {key:'appearance', label:'외형', type:'text', section:'상세 설정 (TMI)', default:'[헤어, 눈, 인상 등 외형 설명]'},
   {key:'outfit', label:'복장', type:'text', section:'상세 설정 (TMI)', default:'[평상시 / 전투 시 복장 설명]'},
-  {key:'tmi1Label', label:'항목 1 이름', type:'text', section:'상세 설정 (TMI)', default:'화법'},
-  {key:'tmi1Value', label:'항목 1 내용', type:'text', section:'상세 설정 (TMI)', default:'[말투 및 화법 특징]'},
-  {key:'tmi2Label', label:'항목 2 이름', type:'text', section:'상세 설정 (TMI)', default:'대외 이미지'},
-  {key:'tmi2Value', label:'항목 2 내용', type:'text', section:'상세 설정 (TMI)', default:'[대중 / 사회적 이미지 설명]'},
-  {key:'tmi3Label', label:'항목 3 이름', type:'text', section:'상세 설정 (TMI)', default:'자기관리'},
-  {key:'tmi3Value', label:'항목 3 내용', type:'text', section:'상세 설정 (TMI)', default:'[자기관리 성향 설명]'},
+  {key:'tmi1Label', label:'항목 1 이름', type:'text', section:'상세 설정 (TMI)', default:'TMI 항목 1'},
+  {key:'tmi1Value', label:'항목 1 내용', type:'text', section:'상세 설정 (TMI)', default:'[설명]'},
+  {key:'tmi2Label', label:'항목 2 이름', type:'text', section:'상세 설정 (TMI)', default:'TMI 항목 2'},
+  {key:'tmi2Value', label:'항목 2 내용', type:'text', section:'상세 설정 (TMI)', default:'[설명]'},
+  {key:'tmi3Label', label:'항목 3 이름', type:'text', section:'상세 설정 (TMI)', default:'TMI 항목 3'},
+  {key:'tmi3Value', label:'항목 3 내용', type:'text', section:'상세 설정 (TMI)', default:'[설명]'},
 
   {key:'handlingText', label:'취급 주의사항 (Handling Protocol)', type:'textarea', section:'취급 주의사항', default:'[가이딩 / 파트너 관계에서의 주의사항 및 취급 지침을 입력하세요]'},
 ];
@@ -636,38 +636,25 @@ ${abilityExtra}
 
 const OOC_TEXT = `[ooc: 이전 롤플레잉 중단. 새로운 시점에서 롤플레잉 시작한다. PC의 ARCH 공식 프로필을 작성하려고 한다. 배경 로그 / 외형 특징 / 핸들링 프로토콜 을 서술형식에 맞춰 로어북, 유저노트, 페르소나, 캐릭터 정보, 둘의 관계성 등을 참조하여 5000자 이상 서술해 나가시오.
 
-
 # 배경 로그 서술 예시 (NPC의 공식 프로필로, 이러한 형식으로 PC의 과거 배경을 서술한다. 캐릭터의 배경 이야기, 각성 계기, 상대역([상대역 이름])과의 첫 만남 등 서사를 입력하세요.)
-
 [NPC의 'BACKGROUND LOG' 부분 복사해서 붙여넣기]
 
 
 #외형 특징
 
 • 신장/체격: [신장 및 체격 설명]
-
 • 외형: [헤어, 눈, 인상 등 외형 설명]
-
 • 복장: [평상시/전투 시 복장 설명]
 
-성향 및 기호 (Behavioral Pattern)
+# 성향 및 기호 및 TMI 3가지
 
-• 화법: [말투 및 화법 특징]
-
-• 대외 이미지: [대중/사회적 이미지 설명]
-
-• 자기관리: [자기관리 성향 설명]
-
-• 체향: [체향 설명]
-
+• 항목: 설명
+• 항목: 설명
+• 항목: 설명
 
 
 #핸들링 프로토콜
-
 [가이딩/파트너 관계에서의 주의사항 및 취급 지침을 입력하세요]
-
-
-
 ]`;
 
 async function copyOocText(){
