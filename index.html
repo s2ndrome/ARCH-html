@@ -515,10 +515,7 @@ function buildCardHtml(){
   const imageUrl = val('imageUrl');
   const bgImage = imageUrl ? `url('${imageUrl}') no-repeat center 20% / cover` : `linear-gradient(160deg, ${s.panelBg}, ${s.cardBg})`;
 
-  return `<div class="feed-card">
-  <div class="card-header"><span class="card-icon">✦</span><span class="card-title">PROFILE</span></div>
-  <h2>${val('charName')}</h2>
-  <p><div data-role="capture-root" class="markdown-body transform-[scale(1)] text-sm">
+  return `<div data-role="capture-root" class="markdown-body transform-[scale(1)] text-sm">
     <div style="background: ${s.cardBg}; max-width: 100%; margin: auto; font-family: 'Inter', 'Noto Sans KR', sans-serif; border-radius: 12px; overflow: hidden; border: 1px solid ${p.cardBorder};">
 
       <div style="min-height: 650px; height: auto; width: 100%; background: ${bgImage}; position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: 40px; box-sizing: border-box; text-shadow: 0 5px 20px rgba(0,0,0,0.9);">
@@ -630,8 +627,7 @@ ${abilityExtra}
       </div>
     </div>
   </div>
-  </p>
-</div>`;
+`;
 }
 
 const OOC_TEXT = `[ooc: 이전 롤플레잉 중단. 새로운 시점에서 롤플레잉 시작한다. PC의 ARCH 공식 프로필을 작성하려고 한다. 배경 로그 / 외형 특징 / 핸들링 프로토콜 을 서술형식에 맞춰 로어북, 유저노트, 페르소나, 캐릭터 정보, 둘의 관계성 등을 참조하여 5000자 이상 서술해 나가시오.
