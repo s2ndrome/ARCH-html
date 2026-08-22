@@ -419,6 +419,9 @@ sections.forEach(section => {
   if(section === '대표 이미지'){
     fs.appendChild(buildImageUploader());
   }
+  if(section === '아카이브 문서'){
+    fs.appendChild(buildOocButton());
+  }
   FIELDS.filter(f=>f.section===section).forEach(f=>{
     const wrap = document.createElement('div');
     wrap.className = 'field';
@@ -584,7 +587,7 @@ ${abilityExtra}
       </div>
     </div>
 
-    <div data-role="archive-card" style="background: ${s.archiveBg}; max-width: 100%; margin: auto; padding: 25px; font-family: 'Noto Sans KR', sans-serif; border: 1px solid ${p.cardBorder}; border-radius: 10px; color: ${s.textMain};">
+    <div style="background: ${s.archiveBg}; max-width: 100%; margin: auto; padding: 25px; font-family: 'Noto Sans KR', sans-serif; border: 1px solid ${p.cardBorder}; border-radius: 10px; color: ${s.textMain};">
 
       <div style="border-bottom: 2px solid ${p.borderAlpha}; padding-bottom: 20px; margin-bottom: 25px; text-align: center;">
         <p style="margin: 0; font-size: 14px; font-weight: 700; color: ${p.heading}; letter-spacing: 5px; text-transform: uppercase;">[ ARCHIVE DOCUMENT ]</p>
@@ -692,24 +695,21 @@ async function copyOocText(){
     showToast('OOC 텍스트가 복사되었습니다');
   }
 }
-function injectOocButton(){
-  const archiveEl = document.querySelector('#cardPreview [data-role="archive-card"]');
-  if(!archiveEl) return;
+function buildOocButton(){
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'max-width:900px; margin:0 auto 14px; display:flex; justify-content:flex-end;';
+  wrap.className = 'field';
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.textContent = '출력 OOC 복사';
-  btn.style.cssText = 'border:1px solid #c7cad1; background:#fff; color:#1a1c23; padding:8px 14px; border-radius:6px; font-size:13px; cursor:pointer; font-weight:600;';
+  btn.style.cssText = 'width:100%; border:1px solid var(--tool-accent); background:#fff; color:var(--tool-accent); padding:9px; border-radius:6px; font-size:13px; cursor:pointer; font-weight:700;';
   btn.addEventListener('click', copyOocText);
   wrap.appendChild(btn);
-  archiveEl.parentNode.insertBefore(wrap, archiveEl);
+  return wrap;
 }
 
 function render(){
   const html = buildCardHtml();
   document.getElementById('cardPreview').innerHTML = html;
-  injectOocButton();
   return html;
 }
 
