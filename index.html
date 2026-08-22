@@ -274,7 +274,6 @@ const FIELDS = [
 
   {key:'archiveTitle', label:'상세 기록 제목', type:'text', section:'아카이브 문서', default:'[캐릭터 상세 기록 제목]'},
   {key:'archiveNotice', label:'열람 제한 안내 문구', type:'text', section:'아카이브 문서', default:'[열람 제한 안내 문구]'},
-  {key:'partnerName', label:'상대역 이름', type:'text', section:'아카이브 문서', default:'[상대역 이름]'},
   {key:'backgroundLog', label:'배경 서사 (Background Log)', type:'textarea', section:'아카이브 문서', default:'[캐릭터의 배경 이야기, 각성 계기, 상대역과의 첫 만남 등 서사를 입력하세요.]'},
 
   {key:'heightBuild', label:'신장 / 체격', type:'text', section:'상세 설정 (TMI)', default:'[신장 및 체격 설명]'},
@@ -601,7 +600,7 @@ ${abilityExtra}
         <div style="background: ${s.archiveBoxBg}; border-radius: 8px; padding: 25px; border: 1px solid ${s.archiveBoxBorder};">
           <p style="margin: 0 0 15px 0; font-size: 18px; font-weight: 700; color: ${p.main}; border-bottom: 1px solid ${p.borderSoft}; padding-bottom: 10px;">BACKGROUND LOG</p>
           <div style="font-size: 14.5px; line-height: 1.8; color: ${s.textBody2};">
-            <p style="margin: 0 0 15px 0;">${nl2br(val('backgroundLog')).split('{{partner}}').join(`<span class="text-asker-name">${val('partnerName')}</span>`)}</p>
+            <p style="margin: 0 0 15px 0;">${nl2br(val('backgroundLog'))}</p>
           </div>
         </div>
 
