@@ -30,9 +30,9 @@
     width:420px; flex:0 0 420px; max-height:calc(100vh - 61px); overflow-y:auto;
     padding:20px; border-right:1px solid var(--tool-border); background:var(--tool-panel);
   }
-  .preview-pane{flex:1; min-width:0; width:100%; display:flex; flex-direction:column; max-height:calc(100vh - 61px);}
+  .preview-pane{flex:1; min-width:0; display:flex; flex-direction:column; max-height:calc(100vh - 61px);}
   .preview-toolbar{
-    display:flex; align-items:center; gap:10px; padding:14px 24px; flex-wrap:wrap; min-width:0;
+    display:flex; align-items:center; gap:10px; padding:14px 24px;
     border-bottom:1px solid var(--tool-border); background:var(--tool-panel);
   }
   .preview-toolbar button{
@@ -42,10 +42,8 @@
   .preview-toolbar button.secondary{background:#fff; color:var(--tool-text);}
   .preview-toolbar button:hover{opacity:.88;}
   .toast{font-size:12px; color:#16a34a; font-weight:600;}
-  .preview-scroll{flex:1; min-width:0; overflow-y:auto; overflow-x:hidden; padding:32px; display:flex; justify-content:center;}
-  .preview-shell{width:100%; max-width:900px; min-width:0;}
-  #cardScaleOuter{margin:0 auto;}
-  #cardScaleInner{width:900px; transform-origin: top left;}
+  .preview-scroll{flex:1; overflow-y:auto; padding:32px; display:flex; justify-content:center;}
+  .preview-shell{width:100%; max-width:900px;}
 
   fieldset{border:1px solid var(--tool-border); border-radius:8px; margin:0 0 16px; padding:14px 14px 16px;}
   legend{font-size:12px; font-weight:700; color:var(--tool-accent); padding:0 6px; text-transform:uppercase; letter-spacing:.5px;}
@@ -96,7 +94,6 @@
     .app-body{flex-direction:column;}
     .form-pane{width:100%; flex:none; max-height:none; border-right:none; border-bottom:1px solid var(--tool-border);}
     .preview-pane{max-height:none;}
-    .preview-scroll{padding:16px;}
   }
 </style>
 </head>
@@ -144,13 +141,7 @@
         <span class="toast" id="toast" hidden></span>
       </div>
       <div class="preview-scroll">
-        <div class="preview-shell">
-          <div id="cardScaleOuter">
-            <div id="cardScaleInner">
-              <div id="cardPreview"></div>
-            </div>
-          </div>
-        </div>
+        <div class="preview-shell" id="cardPreview"></div>
       </div>
     </div>
   </div>
@@ -685,25 +676,9 @@ function buildOocButton(){
   return wrap;
 }
 
-function fitPreviewScale(){
-  const scroll = document.querySelector('.preview-scroll');
-  const outer = document.getElementById('cardScaleOuter');
-  const inner = document.getElementById('cardScaleInner');
-  if(!scroll || !outer || !inner) return;
-  const naturalWidth = 900;
-  const naturalHeight = inner.scrollHeight;
-  const available = scroll.clientWidth;
-  const scale = Math.min(1, available / naturalWidth);
-  inner.style.transform = `scale(${scale})`;
-  outer.style.width = (naturalWidth * scale) + 'px';
-  outer.style.height = (naturalHeight * scale) + 'px';
-}
-window.addEventListener('resize', () => fitPreviewScale());
-
 function render(){
   const html = buildCardHtml();
   document.getElementById('cardPreview').innerHTML = html;
-  fitPreviewScale();
   return html;
 }
 
