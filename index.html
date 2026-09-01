@@ -710,6 +710,9 @@ document.getElementById('copyBtn').addEventListener('click', async () => {
   }
 });
 document.getElementById('downloadBtn').addEventListener('click', () => {
+  if((state.imageUrl || '').startsWith('data:')){
+    alert('업로드한 이미지가 원본 파일 그대로 코드에 포함되어 있어 다운로드되는 파일 용량이 매우 커집니다.\n실제로 사용할 때는 이미지를 업로드하는 대신 이미지 경로(URL)를 직접 입력하는 걸 권장합니다.');
+  }
   const html = buildCardHtml();
   const name = (val('codename').replace(/[^\w가-힣-]/g,'') || 'character') + '.html';
   const blob = new Blob([html], {type:'text/html'});
